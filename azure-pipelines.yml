@@ -9,10 +9,22 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-name: $(Date:yyyyMMdd)$(Rev:.r)
-variables:
-  var1: value1
-jobs:
-- job: One
-  steps:
-  - script: echo First step!
+stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - script: echo Building!
+- stage: Test
+  jobs:
+  - job: TestOnWindows
+    steps:
+    - script: echo Testing on Windows!
+  - job: TestOnLinux
+    steps:
+    - script: echo Testing on Linux!
+- stage: Deploy
+  jobs:
+  - job: Deploy
+    steps:
+    - script: echo Deploying the code!
